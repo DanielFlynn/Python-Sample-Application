@@ -48,6 +48,7 @@ def health():
 @app.route('/', methods=['GET'])
 def signup():
     """The first step in the three-legged OAuth handshake.
+
     You should navigate here first. It will redirect to login.uber.com.
     """
     params = {
@@ -56,12 +57,13 @@ def signup():
         'scopes': ','.join(config.get('scopes')),
     }
     url = generate_oauth_service().get_authorize_url(**params)
-    return redirect(url)
+    return render_template('demo.html', token="JA.VUNmGAAAAAAAEgASAAAABwAIAAwAAAAAAAAAEgAAAAAAAAG8AAAAFAAAAAAADgAQAAQAAAAIAAwAAAAOAAAAkAAAABwAAAAEAAAAEAAAADQPrbJmC-_KOofxFnmc7F9sAAAAZA7SSxpsAvK6j5EtGweWJANQ768GMECMei5AbB-zEvoJYgZ6HEdBrbctAiO2kPC6ZsDWjImoUav3jw1m52OvDxmmzaAbTxAOeQ05Ykkj_khEicF_p_HfcpmM6mJSDExj9gNiLENQo_W92rywDAAAABzklQuaC7I-vplvIyQAAABiMGQ4NTgwMy0zOGEwLTQyYjMtODA2ZS03YTRjZjhlMTk2ZWU")
 
 
 @app.route('/submit', methods=['GET'])
 def submit():
     """The other two steps in the three-legged Oauth handshake.
+
     Your redirect uri will redirect you here, where you will exchange
     a code that can be used to obtain an access token for the logged-in use.
     """
@@ -82,8 +84,8 @@ def submit():
 
     return render_template(
         'success.html',
-        token=response.json().get('access_token')
-    )
+        token="")
+    
 
 
 @app.route('/demo', methods=['GET'])
@@ -95,6 +97,7 @@ def demo():
 @app.route('/products', methods=['GET'])
 def products():
     """Example call to the products endpoint.
+
     Returns all the products currently available in San Francisco.
     """
     url = config.get('base_uber_url') + 'products'
@@ -121,6 +124,7 @@ def products():
 @app.route('/time', methods=['GET'])
 def time():
     """Example call to the time estimates endpoint.
+
     Returns the time estimates from the given lat/lng given below.
     """
     url = config.get('base_uber_url') + 'estimates/time'
@@ -147,6 +151,7 @@ def time():
 @app.route('/price', methods=['GET'])
 def price():
     """Example call to the price estimates endpoint.
+
     Returns the time estimates from the given lat/lng given below.
     """
     url = config.get('base_uber_url') + 'estimates/price'

@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "nginx::default"
       chef.add_recipe "python::default"
       chef.arguments = "--chef-license accept"
+      config.vm.provision "shell", inline: 'export UBER_CLIENT_ID="9zEYecCmFFSCDBOqVkEGE2vAMi6NquyB"&&export UBER_CLIENT_SECRET="r-Ft1oisaVNeb_KaDMV-crLAb_Q5nqFojtMOLB6I"'
     end
   end
 end
